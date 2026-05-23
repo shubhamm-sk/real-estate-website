@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Auctions &amp; More — Premium Real Estate Auctions</title>
+<meta name="description" content="Bid on verified residential and commercial properties directly through our trusted auction platform." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Phosphor Icons -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+<style>
+  :root{
+    /* Brand palette derived from logo + header image */
+    --navy-900:#0B1F33;     /* deep navy from logo */
+    --navy-800:#102A44;
+    --navy-700:#143759;
+    --navy-600:#1B4A75;
+    --gold-500:#E0A92E;     /* mustard/gold from logo "Auctions" */
+    --gold-400:#EDB845;
+    --gold-300:#F5CB6E;
+    --cream:#FAF6EE;
+    --paper:#FFFDF8;
+    --ink:#0A1626;
+    --muted:#5B6B7D;
+    --line:rgba(11,31,51,.12);
+
+    --radius-sm:8px;
+    --radius-md:14px;
+    --radius-lg:22px;
+
+    --shadow-soft: 0 10px 30px -12px rgba(11,31,51,.18), 0 4px 10px -4px rgba(11,31,51,.08);
+    --shadow-strong: 0 30px 60px -20px rgba(11,31,51,.35), 0 12px 24px -10px rgba(11,31,51,.20);
+
+    --font-display:"Fraunces", "Times New Roman", serif;
+    --font-body:"Manrope", system-ui, -apple-system, sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+  .container{
+    width:100%;
+    max-width:1280px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ============ NAV ============ */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,253,248,.85);
+    backdrop-filter:saturate(160%) blur(14px);
+    -webkit-backdrop-filter:saturate(160%) blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 0;
+  }
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand-mark{
+    width:46px;height:46px;border-radius:12px;
+    background:var(--cream);
+    display:grid;place-items:center;
+    box-shadow:var(--shadow-soft);
+    overflow:hidden;
+  }
+  .brand-mark svg{width:34px;height:34px}
+  .brand-name{display:flex;flex-direction:column;line-height:1.05}
+  .brand-name .a{
+    font-family:var(--font-display);font-weight:700;
+    font-size:20px;color:var(--gold-500);letter-spacing:-.01em;
+  }
+  .brand-name .b{
+    font-family:var(--font-display);font-weight:600;
+    font-size:14px;color:var(--navy-900);letter-spacing:.02em;
+  }
+
+  .nav-links{display:flex;gap:32px;align-items:center}
+  .nav-links a{
+    font-size:14.5px;font-weight:500;color:var(--navy-800);
+    position:relative;padding:6px 0;transition:color .2s;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;right:0;bottom:-2px;
+    height:2px;background:var(--gold-500);
+    transform:scaleX(0);transform-origin:left;transition:transform .3s ease;
+  }
+  .nav-links a:hover{color:var(--gold-500)}
+  .nav-links a:hover::after{transform:scaleX(1)}
+
+  .nav-cta{
+    background:var(--navy-900);color:var(--cream);
+    padding:11px 20px;border-radius:999px;
+    font-weight:600;font-size:14px;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:transform .2s, background .2s;
+  }
+  .nav-cta:hover{background:var(--gold-500);color:var(--navy-900);transform:translateY(-1px)}
+
+  .hamburger{display:none;font-size:28px;color:var(--navy-900);background:none;border:none}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(224,169,46,.18), transparent 55%),
+      radial-gradient(ellipse at 80% 60%, rgba(27,74,117,.55), transparent 60%),
+      linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 100%);
+    color:var(--cream);
+    overflow:hidden;
+    padding:90px 0 110px;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(245,203,110,.12) 0, transparent 1.2px),
+      radial-gradient(circle at 78% 35%, rgba(245,203,110,.10) 0, transparent 1.5px),
+      radial-gradient(circle at 35% 80%, rgba(245,203,110,.08) 0, transparent 1.4px),
+      radial-gradient(circle at 88% 78%, rgba(245,203,110,.10) 0, transparent 1.3px);
+    background-size:200px 200px,260px 260px,220px 220px,300px 300px;
+    opacity:.9;pointer-events:none;
+  }
+  .hero-grid{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:8px 16px;border-radius:999px;
+    background:rgba(245,203,110,.12);
+    border:1px solid rgba(245,203,110,.35);
+    font-size:13px;font-weight:600;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--gold-300);
+    margin-bottom:24px;
+  }
+  .eyebrow .dot{
+    width:8px;height:8px;border-radius:50%;background:var(--gold-400);
+    box-shadow:0 0 0 4px rgba(237,184,69,.2);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 4px rgba(237,184,69,.2)}
+    50%{box-shadow:0 0 0 8px rgba(237,184,69,.05)}
+  }
+
+  .hero h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:clamp(40px, 6vw, 72px);
+    line-height:1.02;
+    letter-spacing:-.02em;
+    margin-bottom:24px;
+  }
+  .hero h1 .accent{
+    color:var(--gold-400);
+    font-style:italic;
+    font-weight:500;
+  }
+  .hero p.lead{
+    font-size:18px;
+    color:rgba(250,246,238,.78);
+    max-width:520px;
+    margin-bottom:36px;
+  }
+
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 26px;border-radius:999px;
+    font-weight:600;font-size:15px;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s;
+  }
+  .btn-primary{
+    background:var(--gold-500);color:var(--navy-900);
+    box-shadow:0 8px 24px -8px rgba(224,169,46,.6);
+  }
+  .btn-primary:hover{background:var(--gold-400);transform:translateY(-2px);
+    box-shadow:0 12px 32px -8px rgba(224,169,46,.8)}
+  .btn-ghost{
+    background:rgba(255,255,255,.06);
+    color:var(--cream);
+    border:1px solid rgba(250,246,238,.2);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+
+  .hero-stats{display:flex;gap:42px;flex-wrap:wrap}
+  .stat .num{
+    font-family:var(--font-display);
+    font-size:36px;font-weight:600;color:var(--gold-400);
+    line-height:1;
+  }
+  .stat .lbl{
+    font-size:13px;color:rgba(250,246,238,.65);
+    margin-top:6px;letter-spacing:.04em;
+  }
+
+  /* Hero card collage */
+  .hero-card-wrap{
+    position:relative;
+    height:520px;
+  }
+  .hero-card{
+    position:absolute;
+    background:var(--paper);color:var(--ink);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-strong);
+    overflow:hidden;
+  }
+  .hero-card.main{
+    inset:0 0 60px 40px;
+    transform:rotate(-2deg);
+  }
+  .hero-card.main .img{
+    height:62%;
+    background:
+      linear-gradient(135deg, var(--navy-700), var(--navy-900));
+    position:relative;
+    display:grid;place-items:center;
+    color:var(--gold-300);
+  }
+  .hero-card.main .img i{font-size:80px;opacity:.5}
+  .hero-card.main .img::after{
+    content:"FEATURED";position:absolute;top:18px;left:18px;
+    background:var(--gold-500);color:var(--navy-900);
+    padding:5px 12px;border-radius:6px;
+    font-size:11px;font-weight:800;letter-spacing:.08em;
+  }
+  .hero-card.main .body{padding:22px}
+  .hero-card.main h3{
+    font-family:var(--font-display);font-size:22px;font-weight:600;
+    margin-bottom:6px;letter-spacing:-.01em;
+  }
+  .hero-card.main .loc{
+    font-size:13px;color:var(--muted);
+    display:flex;align-items:center;gap:6px;margin-bottom:14px;
+  }
+  .hero-card.main .price{
+    display:flex;align-items:baseline;justify-content:space-between;
+    padding-top:12px;border-top:1px dashed var(--line);
+  }
+  .hero-card.main .price .p{
+    font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--navy-900);
+  }
+  .hero-card.main .price .lab{font-size:11px;color:var(--muted);letter-spacing:.06em}
+
+  .hero-card.mini{
+    width:230px;
+    right:-10px;bottom:0;
+    transform:rotate(4deg);
+    padding:18px;
+  }
+  .hero-card.mini .timer-lbl{
+    font-size:11px;letter-spacing:.1em;color:var(--muted);
+    font-weight:700;text-transform:uppercase;
+  }
+  .hero-card.mini .timer{
+    font-family:var(--font-display);
+    font-size:34px;font-weight:600;color:var(--navy-900);
+    margin:6px 0 10px;letter-spacing:-.02em;
+  }
+  .hero-card.mini .bids{
+    display:flex;align-items:center;gap:8px;
+    font-size:13px;color:var(--navy-700);
+  }
+  .hero-card.mini .bids i{color:var(--gold-500);font-size:18px}
+
+  .hero-badge{
+    position:absolute;top:-14px;left:-14px;
+    width:88px;height:88px;border-radius:50%;
+    background:var(--gold-500);color:var(--navy-900);
+    display:grid;place-items:center;text-align:center;
+    font-family:var(--font-display);font-weight:700;
+    font-size:13px;line-height:1.1;
+    box-shadow:var(--shadow-soft);
+    transform:rotate(-12deg);
+    z-index:2;
+  }
+
+  /* ============ SECTIONS ============ */
+  .section{padding:100px 0;position:relative}
+  .section-head{text-align:center;max-width:680px;margin:0 auto 56px}
+  .section-tag{
+    font-size:13px;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--gold-500);
+    margin-bottom:14px;
+  }
+  .section-title{
+    font-family:var(--font-display);
+    font-size:clamp(32px, 4.2vw, 52px);
+    font-weight:600;letter-spacing:-.02em;line-height:1.08;
+    color:var(--navy-900);margin-bottom:16px;
+  }
+  .section-title em{color:var(--gold-500);font-style:italic;font-weight:500}
+  .section-sub{font-size:17px;color:var(--muted)}
+
+  /* ============ CATEGORIES ============ */
+  .cats{background:var(--cream);position:relative}
+  .cats-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .cat{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:30px 24px;
+    transition:transform .3s, box-shadow .3s, border-color .3s;
+    position:relative;overflow:hidden;
+  }
+  .cat::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--gold-500);
+    transform:scaleX(0);transform-origin:left;transition:transform .4s ease;
+  }
+  .cat:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow-soft);
+    border-color:transparent;
+  }
+  .cat:hover::before{transform:scaleX(1)}
+  .cat .ico{
+    width:54px;height:54px;border-radius:14px;
+    background:linear-gradient(135deg, var(--navy-800), var(--navy-700));
+    color:var(--gold-400);
+    display:grid;place-items:center;
+    font-size:28px;margin-bottom:18px;
+  }
+  .cat h4{
+    font-family:var(--font-display);font-size:22px;font-weight:600;
+    color:var(--navy-900);margin-bottom:6px;
+  }
+  .cat .count{
+    font-size:13px;color:var(--muted);font-weight:500;
+  }
+  .cat .arrow{
+    position:absolute;top:24px;right:24px;
+    color:var(--navy-700);font-size:18px;opacity:0;
+    transition:opacity .3s, transform .3s;
+  }
+  .cat:hover .arrow{opacity:1;transform:translateX(4px)}
+
+  /* ============ AUCTIONS ============ */
+  .auctions-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+  }
+  .auction{
+    background:var(--paper);
+    border-radius:var(--radius-md);
+    overflow:hidden;
+    border:1px solid var(--line);
+    transition:transform .35s ease, box-shadow .35s ease;
+    display:flex;flex-direction:column;
+  }
+  .auction:hover{transform:translateY(-8px);box-shadow:var(--shadow-strong)}
+  .auction .photo{
+    position:relative;
+    aspect-ratio:16/10;
+    background:linear-gradient(135deg, var(--navy-700), var(--navy-900));
+    display:grid;place-items:center;
+    color:var(--gold-300);
+    overflow:hidden;
+  }
+  .auction .photo i{font-size:64px;opacity:.4}
+  .auction .photo::after{
+    content:"";position:absolute;inset:0;
+    background:
+      repeating-linear-gradient(45deg, transparent 0 14px, rgba(255,255,255,.03) 14px 15px);
+  }
+  .auction .tag{
+    position:absolute;top:14px;left:14px;
+    padding:5px 12px;border-radius:6px;
+    font-size:11px;font-weight:700;letter-spacing:.08em;
+    background:var(--paper);color:var(--navy-900);
+    z-index:2;
+  }
+  .auction .tag.live{background:#dc2626;color:#fff}
+  .auction .tag.live::before{
+    content:"●";margin-right:4px;animation:blink 1s ease-in-out infinite;
+  }
+  @keyframes blink{50%{opacity:.3}}
+  .auction .heart{
+    position:absolute;top:14px;right:14px;
+    width:36px;height:36px;border-radius:50%;
+    background:rgba(255,255,255,.92);
+    display:grid;place-items:center;
+    color:var(--navy-900);z-index:2;
+    transition:background .2s, color .2s;
+  }
+  .auction .heart:hover{background:var(--gold-500)}
+  .auction .body{padding:22px;display:flex;flex-direction:column;flex:1}
+  .auction h3{
+    font-family:var(--font-display);
+    font-size:21px;font-weight:600;
+    color:var(--navy-900);margin-bottom:6px;
+    letter-spacing:-.01em;
+  }
+  .auction .loc{
+    font-size:13px;color:var(--muted);
+    display:flex;align-items:center;gap:6px;
+    margin-bottom:16px;
+  }
+  .auction .meta{
+    display:flex;gap:16px;padding:14px 0;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    margin-bottom:16px;
+  }
+  .auction .meta div{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--navy-800)}
+  .auction .meta i{color:var(--gold-500);font-size:16px}
+  .auction .footer-row{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:auto;
+  }
+  .auction .price-lab{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+  .auction .price-val{
+    font-family:var(--font-display);font-size:22px;font-weight:700;
+    color:var(--navy-900);margin-top:2px;
+  }
+  .bid-btn{
+    background:var(--navy-900);color:var(--cream);
+    padding:10px 18px;border-radius:8px;
+    font-weight:600;font-size:13px;
+    display:inline-flex;align-items:center;gap:6px;
+    transition:background .2s;
+  }
+  .bid-btn:hover{background:var(--gold-500);color:var(--navy-900)}
+
+  /* ============ HOW IT WORKS ============ */
+  .how{
+    background:linear-gradient(180deg, var(--paper) 0%, var(--cream) 100%);
+    position:relative;
+  }
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:24px;
+    position:relative;
+  }
+  .step{
+    text-align:center;
+    padding:20px;
+    position:relative;
+  }
+  .step .num{
+    width:64px;height:64px;border-radius:50%;
+    background:var(--paper);
+    border:2px solid var(--gold-500);
+    display:grid;place-items:center;
+    font-family:var(--font-display);
+    font-size:24px;font-weight:700;
+    color:var(--navy-900);
+    margin:0 auto 20px;
+    position:relative;z-index:2;
+  }
+  .step:not(:last-child)::after{
+    content:"";position:absolute;
+    top:32px;left:calc(50% + 40px);right:calc(-50% + 40px);
+    border-top:2px dashed rgba(224,169,46,.4);
+    z-index:1;
+  }
+  .step h4{
+    font-family:var(--font-display);font-size:20px;font-weight:600;
+    color:var(--navy-900);margin-bottom:8px;
+  }
+  .step p{font-size:14px;color:var(--muted)}
+
+  /* ============ WHY US ============ */
+  .why{background:var(--navy-900);color:var(--cream);position:relative;overflow:hidden}
+  .why::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at 70% 30%, rgba(224,169,46,.12), transparent 60%);
+  }
+  .why .section-title{color:var(--cream)}
+  .why .section-sub{color:rgba(250,246,238,.65)}
+  .why-grid{
+    display:grid;grid-template-columns:repeat(3, 1fr);gap:24px;
+    position:relative;z-index:1;
+  }
+  .why-card{
+    padding:32px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius-md);
+    transition:transform .3s, background .3s, border-color .3s;
+  }
+  .why-card:hover{
+    transform:translateY(-6px);
+    background:rgba(255,255,255,.07);
+    border-color:rgba(224,169,46,.4);
+  }
+  .why-card .ico{
+    width:56px;height:56px;border-radius:14px;
+    background:rgba(224,169,46,.15);
+    color:var(--gold-400);
+    display:grid;place-items:center;
+    font-size:28px;margin-bottom:20px;
+  }
+  .why-card h4{
+    font-family:var(--font-display);font-size:22px;font-weight:600;
+    color:var(--cream);margin-bottom:10px;letter-spacing:-.01em;
+  }
+  .why-card p{color:rgba(250,246,238,.7);font-size:15px}
+
+  /* ============ CTA STRIP ============ */
+  .cta-strip{
+    background:var(--gold-500);
+    padding:60px 0;
+    position:relative;overflow:hidden;
+  }
+  .cta-strip::before{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(135deg, transparent 0 40px, rgba(11,31,51,.04) 40px 41px);
+  }
+  .cta-strip-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:30px;flex-wrap:wrap;
+    position:relative;z-index:1;
+  }
+  .cta-strip h2{
+    font-family:var(--font-display);
+    font-size:clamp(28px,3.5vw,40px);font-weight:600;
+    color:var(--navy-900);letter-spacing:-.02em;
+    max-width:600px;line-height:1.15;
+  }
+  .cta-strip .btn{background:var(--navy-900);color:var(--gold-300)}
+  .cta-strip .btn:hover{background:var(--navy-700)}
+
+  /* ============ CONTACT ============ */
+  .contact-grid{
+    display:grid;grid-template-columns:1fr 1.3fr;gap:50px;align-items:start;
+  }
+  .contact-info{
+    background:var(--cream);
+    border-radius:var(--radius-lg);
+    padding:38px;
+    border:1px solid var(--line);
+  }
+  .contact-info h3{
+    font-family:var(--font-display);font-size:28px;font-weight:600;
+    color:var(--navy-900);margin-bottom:8px;letter-spacing:-.01em;
+  }
+  .contact-info > p{color:var(--muted);margin-bottom:28px;font-size:15px}
+  .contact-item{
+    display:flex;gap:16px;align-items:flex-start;
+    padding:18px 0;border-bottom:1px dashed var(--line);
+  }
+  .contact-item:last-child{border-bottom:none}
+  .contact-item .ico{
+    width:44px;height:44px;border-radius:10px;
+    background:var(--paper);
+    color:var(--gold-500);
+    display:grid;place-items:center;flex-shrink:0;
+    font-size:22px;
+    border:1px solid var(--line);
+  }
+  .contact-item .label{
+    font-size:12px;color:var(--muted);font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;
+  }
+  .contact-item .value{
+    font-size:15px;color:var(--navy-900);font-weight:500;
+    margin-top:2px;line-height:1.5;
+  }
+  .contact-item .value a{color:var(--navy-900);transition:color .2s}
+  .contact-item .value a:hover{color:var(--gold-500)}
+
+  /* Form */
+  form.contact-form{
+    background:var(--paper);
+    border-radius:var(--radius-lg);
+    padding:38px;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow-soft);
+  }
+  form.contact-form h3{
+    font-family:var(--font-display);font-size:28px;font-weight:600;
+    color:var(--navy-900);margin-bottom:8px;letter-spacing:-.01em;
+  }
+  form.contact-form > p{color:var(--muted);margin-bottom:24px;font-size:15px}
+  .field{margin-bottom:18px}
+  .field label{
+    display:block;font-size:13px;font-weight:600;
+    color:var(--navy-800);margin-bottom:8px;letter-spacing:.02em;
+  }
+  .field input, .field textarea, .field select{
+    width:100%;padding:14px 16px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-family:inherit;font-size:15px;color:var(--ink);
+    transition:border-color .2s, background .2s;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus{
+    outline:none;border-color:var(--gold-500);background:var(--paper);
+  }
+  .field textarea{resize:vertical;min-height:110px}
+  .row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  form.contact-form button[type=submit]{
+    width:100%;
+    background:var(--navy-900);color:var(--cream);
+    padding:16px;border-radius:10px;
+    font-size:15px;font-weight:600;
+    margin-top:6px;
+    transition:background .2s, transform .2s;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  }
+  form.contact-form button[type=submit]:hover{background:var(--gold-500);color:var(--navy-900)}
+
+  /* ============ FOOTER ============ */
+  footer{
+    background:var(--navy-900);
+    color:rgba(250,246,238,.7);
+    padding:70px 0 0;
+    position:relative;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1.2fr;
+    gap:50px;
+    padding-bottom:50px;
+  }
+  footer .brand-name .a{color:var(--gold-400)}
+  footer .brand-name .b{color:var(--cream)}
+  footer p.about{
+    margin-top:18px;font-size:14px;line-height:1.7;
+    color:rgba(250,246,238,.6);
+  }
+  footer h5{
+    font-family:var(--font-display);
+    font-size:16px;font-weight:600;color:var(--cream);
+    margin-bottom:18px;letter-spacing:-.005em;
+  }
+  footer ul{list-style:none}
+  footer ul li{margin-bottom:10px}
+  footer ul li a{
+    font-size:14px;color:rgba(250,246,238,.65);
+    transition:color .2s, padding-left .2s;
+    display:inline-block;
+  }
+  footer ul li a:hover{color:var(--gold-400);padding-left:4px}
+
+  .footer-contact-row{
+    display:flex;gap:12px;align-items:flex-start;
+    margin-bottom:14px;font-size:14px;
+  }
+  .footer-contact-row i{color:var(--gold-400);font-size:18px;margin-top:2px;flex-shrink:0}
+
+  .socials{display:flex;gap:10px;margin-top:18px}
+  .socials a{
+    width:38px;height:38px;border-radius:10px;
+    background:rgba(255,255,255,.06);
+    display:grid;place-items:center;
+    color:var(--cream);font-size:18px;
+    transition:background .2s, color .2s, transform .2s;
+  }
+  .socials a:hover{background:var(--gold-500);color:var(--navy-900);transform:translateY(-2px)}
+
+  .copyright{
+    border-top:1px solid rgba(255,255,255,.08);
+    padding:24px 0;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    font-size:13px;color:rgba(250,246,238,.5);
+  }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 1024px){
+    .hero-grid{grid-template-columns:1fr;gap:80px}
+    .hero-card-wrap{height:460px;max-width:480px;margin:0 auto}
+    .cats-grid{grid-template-columns:repeat(2, 1fr)}
+    .auctions-grid{grid-template-columns:repeat(2, 1fr)}
+    .steps{grid-template-columns:repeat(2, 1fr);gap:40px}
+    .step:not(:last-child)::after{display:none}
+    .why-grid{grid-template-columns:1fr;gap:20px}
+    .contact-grid{grid-template-columns:1fr;gap:30px}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
+  }
+
+  @media (max-width: 720px){
+    .nav-links{
+      position:fixed;top:74px;left:0;right:0;
+      flex-direction:column;
+      background:var(--paper);
+      padding:20px 24px;gap:14px;
+      border-bottom:1px solid var(--line);
+      transform:translateY(-150%);
+      transition:transform .3s ease;
+      align-items:stretch;
+    }
+    .nav-links.open{transform:translateY(0)}
+    .nav-links a{padding:10px 0;border-bottom:1px solid var(--line)}
+    .nav-cta{display:none}
+    .hamburger{display:block}
+
+    .section{padding:70px 0}
+    .hero{padding:60px 0 80px}
+    .hero-stats{gap:28px}
+    .stat .num{font-size:28px}
+
+    .cats-grid{grid-template-columns:1fr}
+    .auctions-grid{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr;gap:30px}
+    .footer-grid{grid-template-columns:1fr;gap:36px}
+    .cta-strip-inner{flex-direction:column;align-items:flex-start;text-align:left}
+    .row-2{grid-template-columns:1fr}
+    .contact-info, form.contact-form{padding:28px}
+
+    .hero-card-wrap{height:420px}
+    .hero-card.main{inset:0 0 50px 20px}
+    .hero-card.mini{width:200px}
+    .hero-badge{width:72px;height:72px;font-size:11px}
+  }
+
+  /* Reveal on scroll */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease, transform .8s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="logo.jpeg
+    " class="brand" aria-label="Auctions and More home">
+      <span class="brand-mark" aria-hidden="true">
+        <!-- House roof logo (inspired by your uploaded mark) -->
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 30 L32 10 L58 30 L52 30 L52 26 L48 26 L48 27 L32 16 L6 30 Z" fill="#0B1F33"/>
+          <path d="M6 50 Q22 42 32 46 Q42 50 58 44 L58 50 Z" fill="#0B1F33"/>
+        </svg>
+      </span>
+      <span class="brand-name">
+        <span class="a">Auctions</span>
+        <span class="b">&amp; More</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#categories">Categories</a>
+      <a href="#auctions">Live Auctions</a>
+      <a href="#how">How It Works</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a href="#auctions" class="nav-cta">
+      Bid Now <i class="ph-bold ph-arrow-up-right"></i>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <i class="ph ph-list"></i>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <span class="eyebrow"><span class="dot"></span> Premium Properties &middot; Transparent Auctions</span>
+      <h1>Bid. Win. <span class="accent">Own.</span><br/>Real estate, reimagined.</h1>
+      <p class="lead">Discover verified residential and commercial properties up for auction. Trusted listings, transparent bidding, and a smooth path from gavel to keys.</p>
+      <div class="hero-actions">
+        <a href="#auctions" class="btn btn-primary">View Live Auctions <i class="ph-bold ph-arrow-right"></i></a>
+        <a href="#how" class="btn btn-ghost">How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">500+</div><div class="lbl">VERIFIED PROPERTIES</div></div>
+        <div class="stat"><div class="num">₹250Cr</div><div class="lbl">VALUE TRANSACTED</div></div>
+        <div class="stat"><div class="num">98%</div><div class="lbl">BUYER SATISFACTION</div></div>
+      </div>
+    </div>
+
+    <div class="hero-card-wrap reveal">
+      <div class="hero-badge">VERIFIED<br/>LISTINGS</div>
+      <div class="hero-card main">
+        <div class="img"><i class="ph-fill ph-buildings"></i></div>
+        <div class="body">
+          <h3>The Sterling, Rohini</h3>
+          <div class="loc"><i class="ph ph-map-pin"></i> Sector 7, Rohini, Delhi</div>
+          <div class="price">
+            <div>
+              <div class="lab">CURRENT BID</div>
+              <div class="p">₹ 1.85 Cr</div>
+            </div>
+            <a href="#auctions" class="bid-btn">Place Bid <i class="ph-bold ph-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-card mini">
+        <div class="timer-lbl">ENDS IN</div>
+        <div class="timer" id="heroTimer">02:14:38</div>
+        <div class="bids"><i class="ph-fill ph-gavel"></i> 27 active bids</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATEGORIES ============ -->
+<section class="section cats" id="categories">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag">Browse by Type</div>
+      <h2 class="section-title">Every <em>property</em>, one platform.</h2>
+      <p class="section-sub">From cosy apartments to commercial landmarks — find your next investment, verified and ready to bid.</p>
+    </div>
+
+    <div class="cats-grid">
+      <a href="#auctions" class="cat reveal">
+        <div class="ico"><i class="ph-fill ph-house-line"></i></div>
+        <h4>Residential</h4>
+        <div class="count">142 active auctions</div>
+        <span class="arrow"><i class="ph-bold ph-arrow-up-right"></i></span>
+      </a>
+      <a href="#auctions" class="cat reveal">
+        <div class="ico"><i class="ph-fill ph-buildings"></i></div>
+        <h4>Commercial</h4>
+        <div class="count">87 active auctions</div>
+        <span class="arrow"><i class="ph-bold ph-arrow-up-right"></i></span>
+      </a>
+      <a href="#auctions" class="cat reveal">
+        <div class="ico"><i class="ph-fill ph-tree-evergreen"></i></div>
+        <h4>Land &amp; Plots</h4>
+        <div class="count">64 active auctions</div>
+        <span class="arrow"><i class="ph-bold ph-arrow-up-right"></i></span>
+      </a>
+      <a href="#auctions" class="cat reveal">
+        <div class="ico"><i class="ph-fill ph-storefront"></i></div>
+        <h4>Retail Spaces</h4>
+        <div class="count">38 active auctions</div>
+        <span class="arrow"><i class="ph-bold ph-arrow-up-right"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUCTIONS ============ -->
+<section class="section" id="auctions">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag">Featured Listings</div>
+      <h2 class="section-title">Live <em>auctions</em> right now.</h2>
+      <p class="section-sub">Verified listings, transparent reserve prices, and a fair gavel. Every property goes through our authentication process.</p>
+    </div>
+
+    <div class="auctions-grid">
+      <article class="auction reveal">
+        <div class="photo">
+          <span class="tag live">LIVE</span>
+          <button class="heart" aria-label="Save"><i class="ph ph-heart"></i></button>
+          <i class="ph-fill ph-house-line"></i>
+        </div>
+        <div class="body">
+          <h3>3BHK Premium Apartment</h3>
+          <div class="loc"><i class="ph ph-map-pin"></i> Sector 7, Rohini, Delhi</div>
+          <div class="meta">
+            <div><i class="ph ph-bed"></i> 3 Beds</div>
+            <div><i class="ph ph-bathtub"></i> 2 Baths</div>
+            <div><i class="ph ph-ruler"></i> 1450 sqft</div>
+          </div>
+          <div class="footer-row">
+            <div>
+              <div class="price-lab">CURRENT BID</div>
+              <div class="price-val">₹ 1.85 Cr</div>
+            </div>
+            <a href="#contact" class="bid-btn">Bid <i class="ph-bold ph-gavel"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="auction reveal">
+        <div class="photo">
+          <span class="tag">UPCOMING</span>
+          <button class="heart" aria-label="Save"><i class="ph ph-heart"></i></button>
+          <i class="ph-fill ph-buildings"></i>
+        </div>
+        <div class="body">
+          <h3>Commercial Office Floor</h3>
+          <div class="loc"><i class="ph ph-map-pin"></i> Connaught Place, Delhi</div>
+          <div class="meta">
+            <div><i class="ph ph-briefcase"></i> Office</div>
+            <div><i class="ph ph-users"></i> 40 seats</div>
+            <div><i class="ph ph-ruler"></i> 3200 sqft</div>
+          </div>
+          <div class="footer-row">
+            <div>
+              <div class="price-lab">STARTING BID</div>
+              <div class="price-val">₹ 5.20 Cr</div>
+            </div>
+            <a href="#contact" class="bid-btn">Bid <i class="ph-bold ph-gavel"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="auction reveal">
+        <div class="photo">
+          <span class="tag live">LIVE</span>
+          <button class="heart" aria-label="Save"><i class="ph ph-heart"></i></button>
+          <i class="ph-fill ph-storefront"></i>
+        </div>
+        <div class="body">
+          <h3>Retail Shop, Ground Floor</h3>
+          <div class="loc"><i class="ph ph-map-pin"></i> Karol Bagh, Delhi</div>
+          <div class="meta">
+            <div><i class="ph ph-storefront"></i> Retail</div>
+            <div><i class="ph ph-door"></i> Corner</div>
+            <div><i class="ph ph-ruler"></i> 850 sqft</div>
+          </div>
+          <div class="footer-row">
+            <div>
+              <div class="price-lab">CURRENT BID</div>
+              <div class="price-val">₹ 2.40 Cr</div>
+            </div>
+            <a href="#contact" class="bid-btn">Bid <i class="ph-bold ph-gavel"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="auction reveal">
+        <div class="photo">
+          <span class="tag">UPCOMING</span>
+          <button class="heart" aria-label="Save"><i class="ph ph-heart"></i></button>
+          <i class="ph-fill ph-tree-evergreen"></i>
+        </div>
+        <div class="body">
+          <h3>Residential Plot</h3>
+          <div class="loc"><i class="ph ph-map-pin"></i> Dwarka, Delhi</div>
+          <div class="meta">
+            <div><i class="ph ph-map-trifold"></i> Plot</div>
+            <div><i class="ph ph-compass"></i> East</div>
+            <div><i class="ph ph-ruler"></i> 250 sq yd</div>
+          </div>
+          <div class="footer-row">
+            <div>
+              <div class="price-lab">STARTING BID</div>
+              <div class="price-val">₹ 95 Lakh</div>
+            </div>
+            <a href="#contact" class="bid-btn">Bid <i class="ph-bold ph-gavel"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="auction reveal">
+        <div class="photo">
+          <span class="tag live">LIVE</span>
+          <button class="heart" aria-label="Save"><i class="ph ph-heart"></i></button>
+          <i class="ph-fill ph-house"></i>
+        </div>
+        <div class="body">
+          <h3>Independent Villa</h3>
+          <div class="loc"><i class="ph ph-map-pin"></i> Greater Kailash, Delhi</div>
+          <div class="meta">
+            <div><i class="ph ph-bed"></i> 4 Beds</div>
+            <div><i class="ph ph-bathtub"></i> 4 Baths</div>
+            <div><i class="ph ph-ruler"></i> 4200 sqft</div>
+          </div>
+          <div class="footer-row">
+            <div>
+              <div class="price-lab">CURRENT BID</div>
+              <div class="price-val">₹ 6.75 Cr</div>
+            </div>
+            <a href="#contact" class="bid-btn">Bid <i class="ph-bold ph-gavel"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="auction reveal">
+        <div class="photo">
+          <span class="tag">UPCOMING</span>
+          <button class="heart" aria-label="Save"><i class="ph ph-heart"></i></button>
+          <i class="ph-fill ph-warehouse"></i>
+        </div>
+        <div class="body">
+          <h3>Industrial Warehouse</h3>
+          <div class="loc"><i class="ph ph-map-pin"></i> Bawana, Delhi</div>
+          <div class="meta">
+            <div><i class="ph ph-warehouse"></i> Industrial</div>
+            <div><i class="ph ph-stack"></i> 2 Floors</div>
+            <div><i class="ph ph-ruler"></i> 12,000 sqft</div>
+          </div>
+          <div class="footer-row">
+            <div>
+              <div class="price-lab">STARTING BID</div>
+              <div class="price-val">₹ 4.10 Cr</div>
+            </div>
+            <a href="#contact" class="bid-btn">Bid <i class="ph-bold ph-gavel"></i></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section how" id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag">The Process</div>
+      <h2 class="section-title">From <em>browsing</em> to <em>owning</em>.</h2>
+      <p class="section-sub">Four simple steps. Total transparency. Zero guesswork.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">01</div>
+        <h4>Register</h4>
+        <p>Create your free account and verify your identity in under 5 minutes.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">02</div>
+        <h4>Browse</h4>
+        <p>Explore verified residential, commercial, and plot listings across categories.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">03</div>
+        <h4>Bid Live</h4>
+        <p>Place transparent bids in real-time. Track competing offers live as they happen.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">04</div>
+        <h4>Own It</h4>
+        <p>Win the gavel and our team guides you through paperwork and handover.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="section why">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag" style="color:var(--gold-400)">Why Auctions &amp; More</div>
+      <h2 class="section-title">Built on <em>trust</em>. Refined for <em>results</em>.</h2>
+      <p class="section-sub">We're not just another listing site — we're a curated marketplace where every property is verified and every bid is transparent.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="ico"><i class="ph-fill ph-shield-check"></i></div>
+        <h4>100% Verified Listings</h4>
+        <p>Every property passes a multi-point verification process — legal, structural, and ownership — before going live on auction.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="ico"><i class="ph-fill ph-gavel"></i></div>
+        <h4>Transparent Bidding</h4>
+        <p>See every bid in real-time. No hidden offers, no fake urgency. Just an open, fair gavel for every buyer.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="ico"><i class="ph-fill ph-headset"></i></div>
+        <h4>End-to-End Support</h4>
+        <p>From registration to keys-in-hand, our team handles paperwork, legal coordination, and possession transfer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA STRIP ============ -->
+<section class="cta-strip">
+  <div class="container cta-strip-inner">
+    <h2>Got a property to auction? Let's get it listed.</h2>
+    <a href="#contact" class="btn">List Your Property <i class="ph-bold ph-arrow-right"></i></a>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-tag">Get In Touch</div>
+      <h2 class="section-title">Let's talk <em>property</em>.</h2>
+      <p class="section-sub">Questions about a listing, registering as a buyer, or auctioning your property? We're here.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Reach us directly</h3>
+        <p>Speak to our team Monday to Saturday, 10:00 AM – 7:00 PM.</p>
+
+        <div class="contact-item">
+          <div class="ico"><i class="ph-fill ph-phone"></i></div>
+          <div>
+            <div class="label">Call Us</div>
+            <div class="value">
+              <a href="tel:+919899897647">+91 98998 97647</a><br/>
+              <a href="tel:+919999997247">+91 99999 97247</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="ico"><i class="ph-fill ph-envelope"></i></div>
+          <div>
+            <div class="label">Email Us</div>
+            <div class="value"><a href="mailto:Auctions.more@gmail.com">Auctions.more@gmail.com</a></div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="ico"><i class="ph-fill ph-map-pin"></i></div>
+          <div>
+            <div class="label">Registered Address</div>
+            <div class="value">D-129, Sector 7,<br/>Rohini, Delhi</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="ico"><i class="ph-fill ph-clock"></i></div>
+          <div>
+            <div class="label">Business Hours</div>
+            <div class="value">Mon – Sat: 10:00 AM – 7:00 PM<br/>Sunday: Closed</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+        <h3>Send a message</h3>
+        <p>Tell us what you're looking for and we'll get back within 24 hours.</p>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="fn">Full Name</label>
+            <input id="fn" type="text" placeholder="Your name" required />
+          </div>
+          <div class="field">
+            <label for="ph">Phone</label>
+            <input id="ph" type="tel" placeholder="+91" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="em">Email Address</label>
+          <input id="em" type="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="field">
+          <label for="int">I'm interested in</label>
+          <select id="int">
+            <option>Buying a property</option>
+            <option>Listing my property for auction</option>
+            <option>Investment opportunities</option>
+            <option>General inquiry</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="msg">Message</label>
+          <textarea id="msg" placeholder="Tell us more..." required></textarea>
+        </div>
+
+        <button type="submit">
+          Send Message <i class="ph-bold ph-paper-plane-tilt"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#home" class="brand">
+          <span class="brand-mark" style="background:rgba(255,255,255,.06)">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 30 L32 10 L58 30 L52 30 L52 26 L48 26 L48 27 L32 16 L6 30 Z" fill="#E0A92E"/>
+              <path d="M6 50 Q22 42 32 46 Q42 50 58 44 L58 50 Z" fill="#E0A92E"/>
+            </svg>
+          </span>
+          <span class="brand-name">
+            <span class="a">Auctions</span>
+            <span class="b">&amp; More</span>
+          </span>
+        </a>
+        <p class="about">Premium real estate auctions built on verified listings, transparent bidding, and end-to-end support. Your trusted gavel for property.</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+          <a href="#" aria-label="Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="ph-fill ph-linkedin-logo"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="ph-fill ph-whatsapp-logo"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#auctions">Live Auctions</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Categories</h5>
+        <ul>
+          <li><a href="#auctions">Residential</a></li>
+          <li><a href="#auctions">Commercial</a></li>
+          <li><a href="#auctions">Land &amp; Plots</a></li>
+          <li><a href="#auctions">Retail Spaces</a></li>
+          <li><a href="#auctions">Industrial</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Contact Info</h5>
+        <div class="footer-contact-row">
+          <i class="ph-fill ph-phone"></i>
+          <div>
+            <a href="tel:+919899897647">+91 98998 97647</a><br/>
+            <a href="tel:+919999997247">+91 99999 97247</a>
+          </div>
+        </div>
+        <div class="footer-contact-row">
+          <i class="ph-fill ph-envelope"></i>
+          <a href="mailto:Auctions.more@gmail.com">Auctions.more@gmail.com</a>
+        </div>
+        <div class="footer-contact-row">
+          <i class="ph-fill ph-map-pin"></i>
+          <div>D-129, Sector 7,<br/>Rohini, Delhi</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <div>© <span id="yr"></span> Auctions &amp; More. All rights reserved.</div>
+      <div>Crafted with care for Indian property buyers &amp; sellers.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    hamburger.innerHTML = navLinks.classList.contains('open')
+      ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+  });
+  navLinks.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.innerHTML = '<i class="ph ph-list"></i>';
+    })
+  );
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Hero countdown timer
+  const timerEl = document.getElementById('heroTimer');
+  let total = 2 * 3600 + 14 * 60 + 38;
+  setInterval(() => {
+    if (total <= 0) total = 2 * 3600 + 14 * 60 + 38;
+    total--;
+    const h = String(Math.floor(total / 3600)).padStart(2, '0');
+    const m = String(Math.floor((total % 3600) / 60)).padStart(2, '0');
+    const s = String(total % 60).padStart(2, '0');
+    timerEl.textContent = `${h}:${m}:${s}`;
+  }, 1000);
+
+  // Form handler
+  function handleSubmit(e){
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type=submit]');
+    const original = btn.innerHTML;
+    btn.innerHTML = '<i class="ph-bold ph-check"></i> Message Sent!';
+    btn.style.background = 'var(--gold-500)';
+    btn.style.color = 'var(--navy-900)';
+    setTimeout(() => {
+      btn.innerHTML = original;
+      btn.style.background = '';
+      btn.style.color = '';
+      e.target.reset();
+    }, 2400);
+  }
+</script>
+
+</body>
+</html>
